@@ -13,8 +13,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject squarePrefab;
     [SerializeField] private Canvas canvas;
     private List<Vector3> pathVectorList;
+    [SerializeField] private Transform mapSquaresParent;
     private int currentPathIndex;
-
+    public InfiniteScrollView infiniteScrollView;
 
 
     private void Start()
@@ -40,6 +41,16 @@ public class GameManager : MonoBehaviour
 
             SetTargetPosition(mouseWorldPosition);
         }
+
+        if (Input.GetKey(KeyCode.C))
+        {
+            infiniteScrollView.SetBuildingScroll();
+        }
+
+        if (Input.GetKey(KeyCode.V))
+        {
+            infiniteScrollView.SetProductionScroll();
+        }
     }
 
     private void CreateGridVisuals()
@@ -50,7 +61,7 @@ public class GameManager : MonoBehaviour
         {
             for (int j = 0; j < GRID_HEIGHT; j++)
             {
-                mapVisual[i, j] = Instantiate(squarePrefab, canvas.transform);
+                mapVisual[i, j] = Instantiate(squarePrefab, mapSquaresParent);
 
                 RectTransform rectTransform = mapVisual[i, j].GetComponent<RectTransform>();
                 rectTransform.anchoredPosition = startingPosition + new Vector2(i * CELL_SIZE, j * CELL_SIZE);

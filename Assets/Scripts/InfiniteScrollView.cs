@@ -7,7 +7,7 @@ public class InfiniteScrollView : MonoBehaviour
 {
     public ScrollRect scrollRect;
     public ObjectPool objectPool;
-    public int visibleRowCount = 7;
+    public int visibleRowCount = 3;
     public int itemsPerRow = 2;
     public float itemHeight = 100f;
     public float itemWidth = 100f;
@@ -78,15 +78,18 @@ public class InfiniteScrollView : MonoBehaviour
             RectTransform itemRectTransform = item.GetComponent<RectTransform>();
             itemRectTransform.SetParent(contentRectTransform);
             itemRectTransform.localScale = Vector3.one;
-
-            //itemRectTransform.anchoredPosition = GetItemPosition(i);
-            itemRectTransform.localPosition = GetItemPosition(i);
+            itemRectTransform.anchoredPosition = GetItemPosition(i);
             activeItems.Add(item);
         }
     }
 
     private void CheckVisibility()
     {
+        if (activeItems.Count <= visibleRowCount * itemsPerRow) // Not need to scroll.
+        {
+            return;
+        }
+
         Vector3[] corners = new Vector3[4];
         scrollRect.viewport.GetWorldCorners(corners);
         float bottomEdge = corners[0].y;
@@ -94,6 +97,8 @@ public class InfiniteScrollView : MonoBehaviour
 
         List<GameObject> itemsToRemove = new List<GameObject>();
         List<GameObject> itemsToAdd = new List<GameObject>();
+
+        bool isScrollingUp = scrollRect.velocity.y > 0;
 
         foreach (GameObject item in activeItems)
         {
@@ -108,18 +113,18 @@ public class InfiniteScrollView : MonoBehaviour
         {
             objectPool.ReturnToPool(item);
             activeItems.Remove(item);
-            itemsToAdd.Add(objectPool.GetPooledObject());
-        }
 
-        foreach (GameObject newItem in itemsToAdd)
-        {
+            GameObject newItem = objectPool.GetPooledObject();
             RectTransform newItemRectTransform = newItem.GetComponent<RectTransform>();
             newItemRectTransform.SetParent(contentRectTransform);
             newItemRectTransform.localScale = Vector3.one;
-            newItemRectTransform.anchoredPosition = GetNewItemPosition();
+
+            newItemRectTransform.anchoredPosition = GetNewItemPosition(isScrollingUp);
+
             activeItems.Add(newItem);
         }
     }
+
 
     private Vector2 GetItemPosition(int index)
     {
@@ -128,25 +133,35 @@ public class InfiniteScrollView : MonoBehaviour
         return new Vector2(column * (itemWidth + itemSpacing), -(row * (itemHeight + itemSpacing)));
     }
 
-    Vector2 GetNewItemPosition()
+    Vector2 GetNewItemPosition(bool isScrollingUp)
     {
-        RectTransform viewportRectTransform = scrollRect.viewport;
+        RectTransform contentRectTransform = scrollRect.content;
 
-        Vector3[] viewportCorners = new Vector3[4];
-        viewportRectTransform.GetWorldCorners(viewportCorners);
+        float topMostItemY = float.MinValue;
+        float bottomMostItemY = float.MaxValue;
 
-        float topEdge = viewportCorners[2].y;
-        float bottomEdge = viewportCorners[0].y;
-
-        float itemSpacing = 10;
-
-        if (scrollRect.verticalNormalizedPosition > 0.5f) // Scroll up (Add element to the bottom)
+        foreach (GameObject item in activeItems)
         {
-            return new Vector2(0, bottomEdge + itemHeight + itemSpacing);
+            RectTransform rectTransform = item.GetComponent<RectTransform>();
+            float itemY = rectTransform.anchoredPosition.y;
+
+            if (itemY > topMostItemY)
+            {
+                topMostItemY = itemY;
+            }
+            if (itemY < bottomMostItemY)
+            {
+                bottomMostItemY = itemY;
+            }
         }
-        else //Scroll down (Add element to the top)
+
+        if (isScrollingUp)
         {
-            return new Vector2(0, topEdge - itemHeight - itemSpacing);
+            return new Vector2(0, bottomMostItemY - (itemHeight + itemSpacing)); //Scroll up. (Add new item to the bottom)
+        }
+        else
+        {
+            return new Vector2(0, topMostItemY + (itemHeight + itemSpacing)); //Scroll down. (Add new item to the top)
         }
     }
 }
