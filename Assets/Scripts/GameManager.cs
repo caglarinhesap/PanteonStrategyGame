@@ -50,6 +50,11 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.V))
         {
             infiniteScrollView.SetProductionScroll();
+        }       
+        
+        if (Input.GetKey(KeyCode.B))
+        {
+            infiniteScrollView.HideScroll();
         }
     }
 

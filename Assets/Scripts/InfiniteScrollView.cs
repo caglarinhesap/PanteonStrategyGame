@@ -22,6 +22,7 @@ public class InfiniteScrollView : MonoBehaviour
     {
         contentRectTransform = scrollRect.content;
         PopulateItems();
+        SetBuildingScroll();
     }
 
     private void Update()
