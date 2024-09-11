@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 782973d88a264c24591ea6b14c912d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSprite: {fileID: 21300000, guid: 944461e8d78141b45ba0e9f41610f953, type: 3}
+  itemSprite: {fileID: 21300000, guid: 7a51333a921e3db4db65e4c8865d17de, type: 3}
   unitType: 0
   productionType: 1
   buildingType: 0
