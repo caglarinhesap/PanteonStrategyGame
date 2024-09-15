@@ -73,7 +73,7 @@ public class InputController : MonoBehaviour
         }
     }
 
-    private bool CanBuild(BuildingType building, Vector2 pivotGrid)
+    public bool CanBuild(BuildingType building, Vector2 pivotGrid)
     {
         bool result = true;
 
