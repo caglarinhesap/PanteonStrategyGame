@@ -50,7 +50,7 @@ public class MapView : MonoBehaviour
 
     public bool IsGridInMap(Vector2 grid)
     {
-        if (grid.x >= 0 && grid.x < mapVisuals.GetLength(0) && grid.y >= 0 && grid.y <= mapVisuals.GetLength(1))
+        if (grid.x >= 0 && grid.x < mapVisuals.GetLength(0) && grid.y >= 0 && grid.y < mapVisuals.GetLength(1))
         {
             return true;
         }

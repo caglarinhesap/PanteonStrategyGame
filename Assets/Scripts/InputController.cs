@@ -48,6 +48,18 @@ public class InputController : MonoBehaviour
                         }
                     }
                 }
+                else if (SelectionManager.Instance.selectedFrom == SelectedFrom.Map)
+                {
+                    GameObject unit = UnitManager.Instance.FindUnit(mouseGridPosition);
+                    if (unit != null)
+                    {
+                        SelectionManager.Instance.SelectMapObject(unit);
+                    }
+                    else
+                    {
+                        SelectionManager.Instance.Deselect();
+                    }
+                }
             }
 
             if (Input.GetMouseButtonDown(1)) //Mouse right click
@@ -155,5 +167,6 @@ public class InputController : MonoBehaviour
 
         createdBuilding.transform.position = GameManager.Instance.mapController.mapView.GetWorldPositionFromGrid(pivotGrid);
         UnitManager.Instance.Units.Add(createdBuilding);
+        SelectionManager.Instance.Deselect();
     }
 }

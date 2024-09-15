@@ -70,6 +70,7 @@ public class UnitFactory : MonoBehaviour
     {
         RemoveComponentsFromUnit(unit);
         unit.transform.SetParent(unitPool.transform);
+        UnitManager.Instance.Units.Remove(unit);
         unitPool.ReturnToPool(unit);
     }
 

@@ -19,4 +19,20 @@ public class UnitManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public GameObject FindUnit(Vector2 clickedGrid)
+    {
+        foreach (GameObject unit in Units)
+        {
+            foreach (Vector2 square in unit.GetComponent<IUnit>().OccupiedSquares)
+            {
+                if (clickedGrid == square)
+                {
+                    return unit;
+                }
+            }
+        }
+
+        return null;
+    }
 }

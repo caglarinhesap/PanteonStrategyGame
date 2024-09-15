@@ -29,6 +29,10 @@ public class InformationController : MonoBehaviour
             {
                 informationView.ShowProductionPanel();
             }
+            else
+            {
+                informationView.HideProductionPanel();
+            }
         }
     }
 }
