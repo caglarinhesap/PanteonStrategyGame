@@ -64,7 +64,18 @@ public class InputController : MonoBehaviour
 
             if (Input.GetMouseButtonDown(1)) //Mouse right click
             {
+                if (SelectionManager.Instance.selectedMapObject.GetComponent<BaseSoldier>() != null)
+                {
+                    if (!UnitManager.Instance.FindUnit(mouseGridPosition)) //Target grid is empty. Move
+                    {
+                        Vector2 currentLocation = GameManager.Instance.mapController.mapView.GetGridFromWorldPosition(SelectionManager.Instance.selectedMapObject.transform.position);
+                        SelectionManager.Instance.selectedMapObject.GetComponent<BaseSoldier>().SetPath(currentLocation, mouseGridPosition);
+                    }
+                    else //Target grid is occupied. Attack!
+                    {
 
+                    }
+                }
             }
         }
         else

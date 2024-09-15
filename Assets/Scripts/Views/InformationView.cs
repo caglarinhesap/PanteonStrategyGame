@@ -20,7 +20,7 @@ public class InformationView : MonoBehaviour
 
     public void ShowSelectedUnitPanel(SelectedUnit selectedUnit)
     {
-        selectedUnitName.text = selectedUnit.ToString().ToUpper();
+        selectedUnitName.text = selectedUnit.ToString().ToUpper().Replace("Ý","I");
 
         switch (selectedUnit)
         {

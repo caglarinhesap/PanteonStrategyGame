@@ -28,14 +28,21 @@ public class MapController : MonoBehaviour
         //}
     }
 
-    public void SetTargetPosition(int startX, int startY, int endX, int endY)
+    //public void SetTargetPosition(int startX, int startY, int endX, int endY)
+    //{
+    //    currentPathIndex = 0;
+    //    pathNodeList = mapModel.GetPathfinding().FindPath(startX, startY, endX, endY);
+
+    //    if (pathNodeList != null && pathNodeList.Count > 1)
+    //    {
+    //        pathNodeList.RemoveAt(0);
+    //    }
+    //}
+
+    public List<PathNode> SetTargetPosition(int startX, int startY, int endX, int endY)
     {
-        currentPathIndex = 0;
         pathNodeList = mapModel.GetPathfinding().FindPath(startX, startY, endX, endY);
 
-        if (pathNodeList != null && pathNodeList.Count > 1)
-        {
-            pathNodeList.RemoveAt(0);
-        }
+        return pathNodeList;
     }
 }

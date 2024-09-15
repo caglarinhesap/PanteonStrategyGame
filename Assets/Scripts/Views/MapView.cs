@@ -57,19 +57,18 @@ public class MapView : MonoBehaviour
         return false;
     }
 
-    //public bool IsGridInMap(Vector2 grid)
-    //{
-    //    if (grid.x >= 0 && grid.x width && grid.y >= 0 && grid.y <= height)
-    //            {
-    //        return true;
-    //    }
-    //    return false;
-    //}
-
     public Vector2 GetGridFromPosition(Vector2 position) //Input should be screen to worldpoint
     {
         int gridX = Mathf.FloorToInt((position - mapOriginPosition).x / cellDistance);
         int gridY = Mathf.FloorToInt((position - mapOriginPosition).y / cellDistance);
+        return new Vector2(gridX, gridY);
+    }
+
+    public Vector2 GetGridFromWorldPosition(Vector2 position) //Input should be world position
+    {
+        Vector2 screenPosition = Camera.main.ScreenToWorldPoint(position);
+        int gridX = Mathf.RoundToInt((screenPosition - mapOriginPosition).x / cellDistance);
+        int gridY = Mathf.RoundToInt((screenPosition - mapOriginPosition).y / cellDistance);
         return new Vector2(gridX, gridY);
     }
 
