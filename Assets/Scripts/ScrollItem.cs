@@ -34,11 +34,18 @@ public class ScrollItem : MonoBehaviour
     {
         if (unitType == UnitType.Building)
         {
-
+            if (buildingType == BuildingType.Barracks)
+            {
+                GameManager.Instance.productionController.SetSelectedProductionBuilding(SelectedBuilding.Barracks);
+            }
+            else if (buildingType == BuildingType.PowerPlant)
+            {
+                GameManager.Instance.productionController.SetSelectedProductionBuilding(SelectedBuilding.PowerPlant);
+            }
         }
         else if (unitType == UnitType.Production)
         {
-
+            //SelectionController.GetSelectedBuilding.SoldierFactory.Spawn(SoldierType)
         }
     }
 }

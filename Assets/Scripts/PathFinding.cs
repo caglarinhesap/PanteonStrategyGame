@@ -13,36 +13,15 @@ public class Pathfinding
     private List<PathNode> openList;
     private List<PathNode> closedList;
 
-    public Pathfinding(int width, int height, float cellSize, Vector3 originPosition)
+    public Pathfinding(int width, int height)
     {
         Instance = this;
-        grid = new Grid<PathNode>(width, height, cellSize, originPosition, (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y));
+        grid = new Grid<PathNode>(width, height, (Grid<PathNode> g, int x, int y) => new PathNode(g, x, y));
     }
 
     public Grid<PathNode> GetGrid()
     {
         return grid;
-    }
-
-    public List<Vector3> FindPath(Vector3 startWorldPosition, Vector3 endWorldPosition)
-    {
-        grid.GetXY(startWorldPosition, out int startX, out int startY);
-        grid.GetXY(endWorldPosition, out int endX, out int endY);
-
-        List<PathNode> path = FindPath(startX, startY, endX, endY);
-        if (path == null)
-        {
-            return null;
-        }
-        else
-        {
-            List<Vector3> vectorPath = new List<Vector3>();
-            foreach (PathNode pathNode in path)
-            {
-                vectorPath.Add(new Vector3(pathNode.x, pathNode.y) * grid.GetCellSize() + Vector3.one * grid.GetCellSize() * .5f);
-            }
-            return vectorPath;
-        }
     }
 
     public List<PathNode> FindPath(int startX, int startY, int endX, int endY)

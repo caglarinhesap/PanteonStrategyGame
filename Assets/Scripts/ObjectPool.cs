@@ -12,7 +12,7 @@ public class ObjectPool : MonoBehaviour
     {
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject item = Instantiate(itemPrefab);
+            GameObject item = Instantiate(itemPrefab,transform);
             item.SetActive(false);
             pool.Enqueue(item);
         }
@@ -28,7 +28,7 @@ public class ObjectPool : MonoBehaviour
         }
         else
         {
-            GameObject item = Instantiate(itemPrefab);
+            GameObject item = Instantiate(itemPrefab,transform);
             return item;
         }
     }

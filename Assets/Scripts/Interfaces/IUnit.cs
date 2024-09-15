@@ -1,7 +1,9 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 public interface IUnit
 {
-    int Health { get; set; }
-    int Damage { get; set; }
-    void Move();
-    void Attack();
+    public int Health { get; set; }
+    public List<Vector2> OccupiedSquares { get; set; }
+    public void TakeDamage(int damage);
 }

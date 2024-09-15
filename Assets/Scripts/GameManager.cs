@@ -3,13 +3,13 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    private const int CELL_SIZE = 32;
-    private const int GRID_WIDTH = 34;
-    private const int GRID_HEIGHT = 34;
-    [SerializeField] private GameObject squarePrefab;
-    [SerializeField] private Transform mapSquaresParent;
+    public const int CELL_SIZE = 32;
+    private const int MAP_WIDTH = 32;
+    private const int MAP_HEIGHT = 32;
     public InfiniteScrollView infiniteScrollView;
     public MapController mapController;
+    public InformationController informationController;
+    public ProductionController productionController;
 
     private void Awake()
     {
@@ -26,16 +26,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        mapController.InitializeMap(GRID_WIDTH, GRID_HEIGHT, CELL_SIZE, new Vector3(-GRID_WIDTH * CELL_SIZE / 2, -GRID_HEIGHT * CELL_SIZE / 2, 0), squarePrefab, mapSquaresParent);
+        mapController.Initialize(MAP_WIDTH, MAP_HEIGHT, CELL_SIZE);
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Vector3 mouseWorldPosition = Utils.GetMouseWorldPosition();
-            mapController.HandleMouseClick(mouseWorldPosition);
-        }
+        //Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
 
         if (Input.GetKey(KeyCode.C))
         {
@@ -50,6 +46,26 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.B))
         {
             infiniteScrollView.HideScroll();
+        }
+
+        if (Input.GetKey(KeyCode.Q))
+        {
+            mapController.SetTargetPosition(0, 0, 15, 0);
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            mapController.SetTargetPosition(15, 0, 0, 0);
+        }
+
+        if (Input.GetKey(KeyCode.E))
+        {
+            mapController.mapModel.GetPathfinding().GetNode(15, 0).SetIsWalkable(false);
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            mapController.mapModel.GetPathfinding().GetNode(15, 0).SetIsWalkable(true);
         }
     }
 }
