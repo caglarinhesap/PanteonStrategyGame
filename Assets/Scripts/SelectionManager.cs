@@ -56,19 +56,19 @@ public class SelectionManager : MonoBehaviour
             else if (selectedFrom == SelectedFrom.Map)
             {
                 dummyBuilding.SetActive(false);
-                ResetOldSquares();
+                ResetOldAreaColors();
             }
         }
         else
         {
             dummyBuilding.SetActive(false); 
-            ResetOldSquares();
+            ResetOldAreaColors();
         }
     }
 
     private void SetDummyObjectBackground(BuildingType building, Vector2 pivotGridPosition)
     {
-        ResetOldSquares();
+        ResetOldAreaColors();
         bool isAreaSuitable = true;
         isAreaSuitable = CheckAreaSuitable(building, pivotGridPosition, isAreaSuitable);
         SetAreaColors(building, pivotGridPosition, isAreaSuitable);
@@ -178,7 +178,7 @@ public class SelectionManager : MonoBehaviour
         return isAreaSuitable;
     }
 
-    private void ResetOldSquares()
+    private void ResetOldAreaColors()
     {
         foreach (GameObject square in productionSquares)
         {

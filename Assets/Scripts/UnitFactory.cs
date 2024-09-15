@@ -76,26 +76,26 @@ public class UnitFactory : MonoBehaviour
 
     private void RemoveComponentsFromUnit(GameObject unit)
     {
-        Soldier1 s1 = unit.GetComponent<Soldier1>();
-        Soldier2 s2 = unit.GetComponent<Soldier2>();
-        Soldier3 s3 = unit.GetComponent<Soldier3>();
-        Barracks b = unit.GetComponent<Barracks>();
-        PowerPlant p = unit.GetComponent<PowerPlant>();
+        Soldier1 soldier1 = unit.GetComponent<Soldier1>();
+        Soldier2 soldier2 = unit.GetComponent<Soldier2>();
+        Soldier3 soldier3 = unit.GetComponent<Soldier3>();
+        Barracks barracks = unit.GetComponent<Barracks>();
+        PowerPlant powerplant = unit.GetComponent<PowerPlant>();
 
-        if (s1 != null)
-            Destroy(s1);       
+        if (soldier1 != null)
+            Destroy(soldier1);       
         
-        if (s2 != null)
-            Destroy(s2);     
+        if (soldier2 != null)
+            Destroy(soldier2);     
         
-        if (s3 != null)
-            Destroy(s3);      
+        if (soldier3 != null)
+            Destroy(soldier3);      
         
-        if (b != null)
-            Destroy(b);        
+        if (barracks != null)
+            Destroy(barracks);        
 
-        if (p != null)
-            Destroy(p);
+        if (powerplant != null)
+            Destroy(powerplant);
     }
 
 }

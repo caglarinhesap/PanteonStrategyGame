@@ -45,7 +45,43 @@ public class ScrollItem : MonoBehaviour
         }
         else if (unitType == UnitType.Production)
         {
-            //SelectionController.GetSelectedBuilding.SoldierFactory.Spawn(SoldierType)
+            Vector2 spawnPoint = SelectionManager.Instance.selectedMapObject.GetComponent<Barracks>().SpawnPoint;
+            if (GameManager.Instance.mapController.mapView.IsGridInMap(spawnPoint))
+            {
+                if (GameManager.Instance.mapController.mapModel.GetPathfinding().GetNode((int)spawnPoint.x,(int)spawnPoint.y).isWalkable)
+                {
+                    GameObject createdSoldier;
+
+                    switch (productionType)
+                    {
+                        case ProductionType.Soldier1:
+                            createdSoldier = UnitFactory.Instance.CreateUnit(Units.Soldier1);
+                            break;
+                        case ProductionType.Soldier2:
+                            createdSoldier = UnitFactory.Instance.CreateUnit(Units.Soldier2);
+                            break;
+                        case ProductionType.Soldier3:
+                            createdSoldier = UnitFactory.Instance.CreateUnit(Units.Soldier3);
+                            break;
+                        default:
+                            createdSoldier = UnitFactory.Instance.CreateUnit(Units.Soldier1);
+                            break;
+                    }
+
+                    createdSoldier.GetComponent<IUnit>().OccupiedSquares.Add(new Vector2(spawnPoint.x, spawnPoint.y));
+                    GameManager.Instance.mapController.mapModel.GetPathfinding().GetNode((int)spawnPoint.x, (int)spawnPoint.y).SetIsWalkable(false);
+                    createdSoldier.transform.position = GameManager.Instance.mapController.mapView.GetWorldPositionFromGrid(spawnPoint);
+                    UnitManager.Instance.Units.Add(createdSoldier);
+                }
+                else
+                {
+                    // Spawn point is blocked.
+                }
+            }
+            else
+            {
+                // Spawn point is outside the map.
+            }
         }
     }
 }

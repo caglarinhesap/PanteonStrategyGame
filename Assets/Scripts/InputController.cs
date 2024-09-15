@@ -33,7 +33,7 @@ public class InputController : MonoBehaviour
             {
                 if (SelectionManager.Instance.selectedFrom == SelectedFrom.ProductionPopup)
                 {
-                    if(SelectionManager.Instance.selectedUnit == SelectedUnit.Barracks)
+                    if (SelectionManager.Instance.selectedUnit == SelectedUnit.Barracks)
                     {
                         if (CanBuild(BuildingType.Barracks, mouseGridPosition))
                         {
@@ -80,9 +80,9 @@ public class InputController : MonoBehaviour
         switch (building)
         {
             case BuildingType.Barracks:
-                for (int i=0;i<4;i++)
+                for (int i = 0; i < 4; i++)
                 {
-                    for (int j=0;j<4;j++)
+                    for (int j = 0; j < 4; j++)
                     {
                         if (GameManager.Instance.mapController.mapView.IsGridInMap(new Vector2(pivotGrid.x + i, pivotGrid.y + j)))
                         {
@@ -150,6 +150,9 @@ public class InputController : MonoBehaviour
                     GameManager.Instance.mapController.mapModel.GetPathfinding().GetNode((int)pivotGrid.x + i, (int)pivotGrid.y + j).SetIsWalkable(false);
                 }
             }
+
+            // Set the spawn point to the bottom square. Ensure the spawn point is within the map and empty while spawning.
+            createdBuilding.GetComponent<Barracks>().SpawnPoint = new Vector2(pivotGrid.x, pivotGrid.y - 1);
         }
         else
         {
