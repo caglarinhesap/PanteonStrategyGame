@@ -1,4 +1,7 @@
-public class Soldier1 : BaseSoldier
+namespace Models
 {
-    public Soldier1() : base(10, 10) { }
+    public class Soldier1 : BaseSoldier
+    {
+        public Soldier1() : base(10, 10) { }
+    }
 }

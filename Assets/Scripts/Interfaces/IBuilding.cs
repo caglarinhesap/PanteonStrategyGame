@@ -1,4 +1,7 @@
-public interface IBuilding : IUnit
+namespace Interfaces
 {
+    public interface IBuilding : IUnit
+    {
 
+    }
 }

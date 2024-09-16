@@ -1,4 +1,7 @@
-public class PowerPlant : BaseBuilding
+namespace Models
 {
-    public PowerPlant() : base(50) { }
+    public class PowerPlant : BaseBuilding
+    {
+        public PowerPlant() : base(50) { }
+    }
 }

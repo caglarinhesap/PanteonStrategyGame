@@ -1,26 +1,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapModel
+namespace Models
 {
-    public int Width { get; private set; }
-    public int Height { get; private set; }
-    private Pathfinding pathFinding;
-
-    public MapModel(int width, int height)
+    public class MapModel
     {
-        Width = width;
-        Height = height;
-        pathFinding = new Pathfinding(Width, Height);
-    }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
+        private Pathfinding pathFinding;
 
-    public Pathfinding GetPathfinding()
-    {
-        return pathFinding;
-    }
+        public MapModel(int width, int height)
+        {
+            Width = width;
+            Height = height;
+            pathFinding = new Pathfinding(Width, Height);
+        }
 
-    public List<PathNode> FindPath(int startX, int startY, int endX, int endY)
-    {
-        return pathFinding.FindPath(startX, startY, endX, endY);
+        public Pathfinding GetPathfinding()
+        {
+            return pathFinding;
+        }
+
+        public List<PathNode> FindPath(int startX, int startY, int endX, int endY)
+        {
+            return pathFinding.FindPath(startX, startY, endX, endY);
+        }
     }
 }

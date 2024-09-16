@@ -1,38 +1,42 @@
+using Interfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitManager : MonoBehaviour
+namespace Managers
 {
-    public static UnitManager Instance { get; private set; }
-    public List<GameObject> Units;
-
-    private void Awake()
+    public class UnitManager : MonoBehaviour
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            //DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-    }
+        public static UnitManager Instance { get; private set; }
+        public List<GameObject> Units;
 
-    public GameObject FindUnit(Vector2 clickedGrid)
-    {
-        foreach (GameObject unit in Units)
+        private void Awake()
         {
-            foreach (Vector2 square in unit.GetComponent<IUnit>().OccupiedSquares)
+            if (Instance == null)
             {
-                if (clickedGrid == square)
-                {
-                    return unit;
-                }
+                Instance = this;
+                //DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
             }
         }
 
-        return null;
+        public GameObject FindUnit(Vector2 clickedGrid)
+        {
+            foreach (GameObject unit in Units)
+            {
+                foreach (Vector2 square in unit.GetComponent<IUnit>().OccupiedSquares)
+                {
+                    if (clickedGrid == square)
+                    {
+                        return unit;
+                    }
+                }
+            }
+
+            return null;
+        }
     }
 }

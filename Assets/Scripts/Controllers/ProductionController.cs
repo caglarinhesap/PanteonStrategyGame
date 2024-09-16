@@ -1,25 +1,32 @@
+using Enums;
+using Managers;
+using Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Views;
 
-public class ProductionController : MonoBehaviour
+namespace Controllers
 {
-    private ProductionModel productionModel = new ProductionModel();
-    public ProductionView productionView;
-
-    public void SetSelectedProductionBuilding(SelectedBuilding selectedBuilding)
+    public class ProductionController : MonoBehaviour
     {
-        productionModel.selectedBuilding = selectedBuilding;
+        private ProductionModel productionModel = new ProductionModel();
+        public ProductionView productionView;
 
-        SelectionManager.Instance.selectedFrom = SelectedFrom.ProductionPopup;
+        public void SetSelectedProductionBuilding(SelectedBuilding selectedBuilding)
+        {
+            productionModel.selectedBuilding = selectedBuilding;
 
-        if (selectedBuilding == SelectedBuilding.Barracks)
-        {
-            SelectionManager.Instance.selectedUnit = SelectedUnit.Barracks;
-        }
-        else if (selectedBuilding == SelectedBuilding.PowerPlant)
-        {
-            SelectionManager.Instance.selectedUnit = SelectedUnit.PowerPlant;
+            SelectionManager.Instance.selectedFrom = SelectedFrom.ProductionPopup;
+
+            if (selectedBuilding == SelectedBuilding.Barracks)
+            {
+                SelectionManager.Instance.selectedUnit = SelectedUnit.Barracks;
+            }
+            else if (selectedBuilding == SelectedBuilding.PowerPlant)
+            {
+                SelectionManager.Instance.selectedUnit = SelectedUnit.PowerPlant;
+            }
         }
     }
 }

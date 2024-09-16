@@ -1,37 +1,43 @@
+using Enums;
+using Models;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Views;
 
-public class InformationController : MonoBehaviour
+namespace Controllers
 {
-    private InformationModel informationModel = new InformationModel();
-    public InformationView informationView;
-
-    private void Start()
+    public class InformationController : MonoBehaviour
     {
-        SelectUnit(SelectedUnit.None);
-    }
+        private InformationModel informationModel = new InformationModel();
+        public InformationView informationView;
 
-    public void SelectUnit(SelectedUnit unit)
-    {
-        informationModel.selectedUnit = unit;
-
-        if (informationModel.selectedUnit == SelectedUnit.None)
+        private void Start()
         {
-            informationView.HideSelectedUnitPanel();
-            informationView.HideProductionPanel();
+            SelectUnit(SelectedUnit.None);
         }
-        else
-        {
-            informationView.ShowSelectedUnitPanel(informationModel.selectedUnit);
 
-            if (informationModel.selectedUnit == SelectedUnit.Barracks)
+        public void SelectUnit(SelectedUnit unit)
+        {
+            informationModel.selectedUnit = unit;
+
+            if (informationModel.selectedUnit == SelectedUnit.None)
             {
-                informationView.ShowProductionPanel();
+                informationView.HideSelectedUnitPanel();
+                informationView.HideProductionPanel();
             }
             else
             {
-                informationView.HideProductionPanel();
+                informationView.ShowSelectedUnitPanel(informationModel.selectedUnit);
+
+                if (informationModel.selectedUnit == SelectedUnit.Barracks)
+                {
+                    informationView.ShowProductionPanel();
+                }
+                else
+                {
+                    informationView.HideProductionPanel();
+                }
             }
         }
     }

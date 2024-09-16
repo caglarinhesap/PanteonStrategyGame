@@ -1,13 +1,17 @@
+using Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InformationModel
+namespace Models
 {
-    public SelectedUnit selectedUnit;
-
-    public InformationModel()
+    public class InformationModel
     {
-        selectedUnit = SelectedUnit.None;
+        public SelectedUnit selectedUnit;
+
+        public InformationModel()
+        {
+            selectedUnit = SelectedUnit.None;
+        }
     }
 }

@@ -1,13 +1,17 @@
+using Enums;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProductionModel
+namespace Models
 {
-    public SelectedBuilding selectedBuilding;
-
-    public ProductionModel()
+    public class ProductionModel
     {
-        selectedBuilding = SelectedBuilding.None;
+        public SelectedBuilding selectedBuilding;
+
+        public ProductionModel()
+        {
+            selectedBuilding = SelectedBuilding.None;
+        }
     }
 }
