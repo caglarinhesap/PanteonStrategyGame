@@ -91,12 +91,12 @@ public class ScrollItem : MonoBehaviour
                 }
                 else
                 {
-                    // Spawn point is blocked.
+                    WarningController.Instance.ShowWarning("WARNING", "Spawn point is blocked.");
                 }
             }
             else
             {
-                // Spawn point is outside the map.
+                WarningController.Instance.ShowWarning("WARNING", "Spawn point is outside the map.");
             }
         }
     }
