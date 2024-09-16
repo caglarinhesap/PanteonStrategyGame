@@ -64,7 +64,7 @@ public class InputController : MonoBehaviour
 
             if (Input.GetMouseButtonDown(1)) //Mouse right click
             {
-                if (SelectionManager.Instance.selectedMapObject.GetComponent<BaseSoldier>() != null)
+                if (SelectionManager.Instance.selectedMapObject.GetComponent<BaseSoldier>() != null) //Selected unit is a soldier.
                 {
                     if (!UnitManager.Instance.FindUnit(mouseGridPosition)) //Target grid is empty. Move
                     {
@@ -73,7 +73,7 @@ public class InputController : MonoBehaviour
                     }
                     else //Target grid is occupied. Attack!
                     {
-
+                        SelectionManager.Instance.selectedMapObject.GetComponent<BaseSoldier>().ReachTarget(UnitManager.Instance.FindUnit(mouseGridPosition));
                     }
                 }
             }
@@ -162,6 +162,19 @@ public class InputController : MonoBehaviour
                 }
             }
 
+            for (int i = 0; i < 6; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    if (i >= 1 && i < 5 && j >= 1 && j < 5) //That point is inside of the barracks.
+                    {
+                        continue;
+                    }
+
+                    createdBuilding.GetComponent<Barracks>().SurroundingSquares.Add(new Vector2(pivotGrid.x + i-1, pivotGrid.y + j-1)); //Get surrounding squares.
+                }
+            }
+
             // Set the spawn point to the bottom square. Ensure the spawn point is within the map and empty while spawning.
             createdBuilding.GetComponent<Barracks>().SpawnPoint = new Vector2(pivotGrid.x, pivotGrid.y - 1);
         }
@@ -175,6 +188,19 @@ public class InputController : MonoBehaviour
                 {
                     createdBuilding.GetComponent<PowerPlant>().OccupiedSquares.Add(new Vector2(pivotGrid.x + i, pivotGrid.y + j));
                     GameManager.Instance.mapController.mapModel.GetPathfinding().GetNode((int)pivotGrid.x + i, (int)pivotGrid.y + j).SetIsWalkable(false);
+                }
+            }
+
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    if (i >= 1 && i < 3 && j >= 1 && j < 4) //That point is inside of the powerplant.
+                    {
+                        continue;
+                    }
+
+                    createdBuilding.GetComponent<PowerPlant>().SurroundingSquares.Add(new Vector2(pivotGrid.x + i - 1, pivotGrid.y + j - 1)); //Get surrounding squares.
                 }
             }
         }

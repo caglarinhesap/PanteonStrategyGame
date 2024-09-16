@@ -28,44 +28,4 @@ public class GameManager : MonoBehaviour
     {
         mapController.Initialize(MAP_WIDTH, MAP_HEIGHT, CELL_SIZE);
     }
-
-    private void Update()
-    {
-        //Debug.Log(Camera.main.ScreenToWorldPoint(Input.mousePosition));
-
-        if (Input.GetKey(KeyCode.C))
-        {
-            infiniteScrollView.SetBuildingScroll();
-        }
-
-        if (Input.GetKey(KeyCode.V))
-        {
-            infiniteScrollView.SetProductionScroll();
-        }
-
-        if (Input.GetKey(KeyCode.B))
-        {
-            infiniteScrollView.HideScroll();
-        }
-
-        if (Input.GetKey(KeyCode.Q))
-        {
-            mapController.SetTargetPosition(0, 0, 15, 0);
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            mapController.SetTargetPosition(15, 0, 0, 0);
-        }
-
-        if (Input.GetKey(KeyCode.E))
-        {
-            mapController.mapModel.GetPathfinding().GetNode(15, 0).SetIsWalkable(false);
-        }
-
-        if (Input.GetKey(KeyCode.W))
-        {
-            mapController.mapModel.GetPathfinding().GetNode(15, 0).SetIsWalkable(true);
-        }
-    }
 }

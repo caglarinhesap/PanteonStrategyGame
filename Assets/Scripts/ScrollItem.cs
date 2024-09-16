@@ -69,6 +69,22 @@ public class ScrollItem : MonoBehaviour
                     }
 
                     createdSoldier.GetComponent<IUnit>().OccupiedSquares.Add(new Vector2(spawnPoint.x, spawnPoint.y));
+
+                    for (int i = 0; i < 3; i++)
+                    {
+                        for (int j = 0; j < 3; j++)
+                        {
+                            if (i == 1 && j == 1) //That point is inside of the barracks.
+                            {
+                                continue;
+                            }
+
+                            createdSoldier.GetComponent<IUnit>().SurroundingSquares.Add(new Vector2(spawnPoint.x + i - 1, spawnPoint.y + j - 1)); //Get surrounding squares.
+                        }
+                    }
+
+                    createdSoldier.GetComponent<BaseSoldier>().CurrentPosition = new Vector2(spawnPoint.x, spawnPoint.y);
+
                     GameManager.Instance.mapController.mapModel.GetPathfinding().GetNode((int)spawnPoint.x, (int)spawnPoint.y).SetIsWalkable(false);
                     createdSoldier.transform.position = GameManager.Instance.mapController.mapView.GetWorldPositionFromGrid(spawnPoint);
                     UnitManager.Instance.Units.Add(createdSoldier);
