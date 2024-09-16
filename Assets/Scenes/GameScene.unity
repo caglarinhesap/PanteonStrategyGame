@@ -216,7 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17016e63a788ea64792269f94a171eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  warningPopup: {fileID: 44796591}
   headerText: {fileID: 235584227}
   messageText: {fileID: 994280064}
   okButton: {fileID: 809572807}
